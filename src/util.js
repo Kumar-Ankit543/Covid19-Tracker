@@ -1,25 +1,27 @@
+import React from "react";
 import { Circle, Popup } from "react-leaflet";
 import numeral from "numeral";
 
 const casesTypeColors = {
   cases: {
     hex: "#CC1034",
-    // rgb: "rgb(204,16,52)",
-    // half_op: "rgba(204,16,52,0.5)",
+    rgb: "rgb(204,16,52)",
+    half_op: "rgba(204,16,52,0.5)",
+    half_op: "rgba(204,16,52,0.5)",
     mulitiplier: 800,
   },
 
   recovered: {
-    hex: "#7DD71D",
-    // rgb: "rgb(125,215,29)",
-    // half_op: "rgba(125,215,29,0.5)",
+    hex: "#7dd71d",
+    rgb: "rgb(125,215,29)",
+    half_op: "rgba(125,215,29,0.5)",
     mulitiplier: 1200,
   },
 
   deaths: {
     hex: "#C0C0C0",
-    // rgb: "rgb(251,68,67)",
-    // half_op: "rgba(251,68,67,0.5)",
+    rgb: "rgb(251,68,67)",
+    half_op: "rgba(251,68,67,0.5)",
     mulitiplier: 2000,
   },
 };
@@ -27,13 +29,21 @@ const casesTypeColors = {
 export const sortData = (data) => {
   const sortedData = [...data];
   sortedData.sort((a, b) => {
-    return b.cases - a.cases;
+    // return b.cases - a.cases;
+    if (a.cases > b.cases) {
+      return -1;
+    } else {
+      return 1;
+    }
   });
   return sortedData;
 };
 
 // draw circles on the map
-export const showDataOnMap = (data, casesType = "cases") => {
+export const prettyPrintStat = (stat) =>
+  stat ? `+${numeral(stat).format("0.0a")}` : "+0";
+
+export const showDataOnMap = (data, casesType = "cases") =>
   data.map((country) => (
     <Circle
       center={[country.countryInfo.lat, country.countryInfo.long]}
@@ -67,4 +77,3 @@ export const showDataOnMap = (data, casesType = "cases") => {
       </Popup>
     </Circle>
   ));
-};

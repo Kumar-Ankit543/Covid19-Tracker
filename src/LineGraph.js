@@ -8,7 +8,7 @@ const options = {
   },
   elements: {
     point: {
-      radius: 0,
+      radius: 2,
     },
   },
   maintainAspectRatio: false,
@@ -73,7 +73,7 @@ function LineGraph({ casesType = "cases" }) {
         })
         .then((data) => {
           console.log("data>>>>>>>>", data);
-          let chartData = buildChartData(data, "cases");
+          let chartData = buildChartData(data, casesType);
           setData(chartData);
         });
     };
